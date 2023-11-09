@@ -1,0 +1,2 @@
+mail_ignore_0@example.com
+mail_ignore_1@example.com
