@@ -2,12 +2,12 @@
 
 ## **依赖**  
 - `imbox` 库  
-  - 建议通过 `python3 -m venv` 创建虚拟环境  
-  - 通过 `pip3 install imbox` 安装  
 
 ## **功能/使用说明**  
 - 安装/运行  
   - 克隆本存储库：`git clone https://github.com/Geraniol/MailCenter.git`  
+  - 建议通过 `python3 -m venv` 创建虚拟环境  
+  - 通过 `pip3 install imbox` 安装依赖  
   - 运行：`python3 mailcenter.py`  
 - 自动标记邮件为已读  
   - 编辑/创建 `./mail_ignore.txt`，将需要标记为已读的邮件地址按行写入  
