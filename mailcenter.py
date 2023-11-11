@@ -11,9 +11,9 @@ def main() -> None:
     TIMESTAMP = True
     SSL = True
 
-    FILEPATH_MAIL_ACCOUNT = "./mail_account.json"
-    FILEPATH_MAIL_IGNORE = "./mail_ignore.txt"
-    FILEPATH_MAIL_DELETE = "./mail_delete.txt"
+    PATH_MAIL_ACCOUNT = "./mail_account.json"
+    PATH_MAIL_IGNORE = "./mail_ignore.txt"
+    PATH_MAIL_DELETE = "./mail_delete.txt"
 
     re_color = re.compile(r"\033\[[0-9]*?m")
 
@@ -37,23 +37,23 @@ def main() -> None:
     event = threading.Event()
 
     try:
-        with open(FILEPATH_MAIL_ACCOUNT, "rt") as f:
+        with open(PATH_MAIL_ACCOUNT, "rt") as f:
             mail_account_list = json.load(f)
     except:
         mail_account_list = []
-        print(OUTPUT_WARNING, f"Empty mail_account_list at [{FILEPATH_MAIL_ACCOUNT}]")
+        print(OUTPUT_WARNING, f"Empty mail_account_list at [{PATH_MAIL_ACCOUNT}]")
 
     try:
         while True:
 
             try:
-                with open(FILEPATH_MAIL_IGNORE, "rt") as f:
+                with open(PATH_MAIL_IGNORE, "rt") as f:
                     mail_ignore_list = f.read().splitlines()
             except:
                 mail_ignore_list = []
 
             try:
-                with open(FILEPATH_MAIL_DELETE, "rt") as f:
+                with open(PATH_MAIL_DELETE, "rt") as f:
                     mail_delete_list = f.read().splitlines()
             except:
                 mail_delete_list = []

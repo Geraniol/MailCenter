@@ -14,19 +14,21 @@
   - 编辑/创建 `./mail_ignore.txt`，将需要标记为已读的邮件地址按行写入  
 - 自动删除邮件  
   - 编辑/创建 `./mail_delete.txt`，将需要删除的邮件地址按行写入  
-- 程序 `mailcenter.py` 中可自定义参数与默认值：  
-  - 内部参数  
-    - `POLLING` = `30` 邮件轮询间隔（秒）  
-    - `QUIET` = `False` 不打印输出  
-    - `NOCOLOR` = `False` 关闭彩色输出  
-    - `TIMESTAMP` = `True` 打印时间戳  
-    - `SSL` = `True` 开启 ssl 认证  
-  - 外部参数  
-    - `FILEPATH_MAIL_ACCOUNT` = `./mail_account.json` 账户信息之文件路径  
-    - `FILEPATH_MAIL_IGNORE` = `./mail_ignore.txt` 需要标记为已读的邮箱之文件路径  
-    - `FILEPATH_MAIL_DELETE` = `./mail_delete.txt` 需要删除的邮箱之文件路径  
 - 目前仅支持 `imap` 协议邮箱  
 - 支持热更新邮箱列表，无需重启程序  
+
+## **参数**
+- 程序 `mailcenter.py` 中可自定义参数  
+- 内部参数  
+  - `POLLING` = `30` 邮件轮询间隔（秒）  
+  - `QUIET` = `False` 不打印输出  
+  - `NOCOLOR` = `False` 关闭彩色输出  
+  - `TIMESTAMP` = `True` 打印时间戳  
+  - `SSL` = `True` 开启 ssl 认证  
+- 外部参数  
+  - `PATH_MAIL_ACCOUNT` = `./mail_account.json` 账户信息之文件路径  
+  - `PATH_MAIL_IGNORE` = `./mail_ignore.txt` 需要标记为已读的邮箱之文件路径  
+  - `PATH_MAIL_DELETE` = `./mail_delete.txt` 需要删除的邮箱之文件路径  
 
 ## **问题**  
 - 无法登陆邮箱  
