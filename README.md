@@ -13,17 +13,17 @@
   - 编辑/创建 `./mail_ignore.txt`，将需要标记为已读的邮件地址按行写入  
 - 自动删除邮件  
   - 编辑/创建 `./mail_delete.txt`，将需要删除的邮件地址按行写入  
-- 程序 `mailcenter.py` 中可自定义参数：  
+- 程序 `mailcenter.py` 中可自定义参数与默认值：  
   - 内部参数  
-    - `POLLING` 邮件轮询间隔（秒）  
-    - `QUIET` 不打印输出  
-    - `NOCOLOR` 关闭彩色输出  
-    - `TIMESTAMP` 打印时间戳  
-    - `SSL` 开启 ssl 认证  
+    - `POLLING` = `30` 邮件轮询间隔（秒）  
+    - `QUIET` = `False` 不打印输出  
+    - `NOCOLOR` = `False` 关闭彩色输出  
+    - `TIMESTAMP` = `True` 打印时间戳  
+    - `SSL` = `True` 开启 ssl 认证  
   - 外部参数  
-    - `MAIL_ACCOUNT_FILE` 账户信息之文件路径  
-    - `MAIL_IGNORE_FILE` 需要标记为已读的邮箱之文件路径  
-    - `MAIL_DELETE_FILE` 需要删除的邮箱之文件路径  
+    - `FILEPATH_MAIL_ACCOUNT` = `./mail_account.json` 账户信息之文件路径  
+    - `FILEPATH_MAIL_IGNORE` = `./mail_ignore.txt` 需要标记为已读的邮箱之文件路径  
+    - `FILEPATH_MAIL_DELETE` = `./mail_delete.txt` 需要删除的邮箱之文件路径  
 - 目前仅支持 `imap` 协议邮箱  
 - 支持热更新邮箱列表，无需重启程序  
 
@@ -33,4 +33,9 @@
   - 在 `./mailcenter.py` 中关闭 ssl 认证：`SSL = False`  
 
 ## **运行预览**  
-<img src="./lib/sample.png" width="100%">  
+![运行预览](./lib/sample.png)  
+- 时间戳（可选）  
+- 账户（邮件接收方邮箱）  
+- 邮件处理方式（忽略IGNORE/删除DELETE）  
+- 邮件发送方邮箱  
+- 邮件标题  
