@@ -1,4 +1,5 @@
 # Mail Center <br /> 邮件中心  
+基于 Python 与 imbox 的邮件预处理中心，支持已读标记、删除邮件  
 
 ## **依赖**  
 - `imbox` 库  
