@@ -3,24 +3,36 @@ def main() -> None:
     import json
     import time
     import threading
-
-    global print
+    import re
 
     POLLING = 30
-    HEADLESS = False
+    QUIET = False
+    NOCOLOR = False
+    TIMESTAMP = True
+    SSL = True
 
     MAIL_ACCOUNT_FILE = "mail_account.json"
     MAIL_IGNORE_FILE = "mail_ignore.txt"
     MAIL_DELETE_FILE = "mail_delete.txt"
 
+    re_color = re.compile(r"\033\[[0-9]*?m")
+
+    global print
     _print = print
 
     def print(*args, **kwargs):
-        if HEADLESS:
+        if QUIET:
             return None
+        if TIMESTAMP:
+            args = (time.strftime("\033[92m[%Y/%m/%d %H:%M:%S UTC%z]\033[0m", time.localtime()),) + args
+        if NOCOLOR:
+            return _print(*(re_color.sub("", str(i)) for i in args), **kwargs)
         else:
-            _print(time.strftime("\033[92m[%Y/%m/%d %H:%M:%S UTC%z]\033[0m", time.localtime()), end=" ")
             return _print(*args, **kwargs)
+
+    OUTPUT_WARNING = f"\033[91m[Warning]\033[0m"
+    OUTPUT_IGNORE = "\033[94m[IGNORE]\033[0m"
+    OUTPUT_DELETE = "\033[91m[DELETE]\033[0m"
 
     event = threading.Event()
 
@@ -29,7 +41,7 @@ def main() -> None:
             mail_account_list = json.load(f)
     except:
         mail_account_list = []
-        print(f"\033[91m[Warning]\033[0m Empty mail_account_list at [{MAIL_ACCOUNT_FILE}]")
+        print(OUTPUT_WARNING, f"Empty mail_account_list at [{MAIL_ACCOUNT_FILE}]")
 
     try:
         while True:
@@ -52,26 +64,27 @@ def main() -> None:
                 mail_pwd = mail_account["pwd"]
                 try:
                     if mail_type == "imap.qq.com":
-                        with imbox.Imbox(mail_type, mail_usr, mail_pwd) as mail_box:
+                        with imbox.Imbox(mail_type, mail_usr, mail_pwd, SSL) as mail_box:
                             mail_unread_list = mail_box.messages(unread=True)
                             for mail_uid, mail_msg in mail_unread_list:
                                 mail_from = mail_msg.sent_from[0]["email"]
                                 mail_subject = mail_msg.subject
                                 if mail_from in mail_ignore_list:
                                     mail_box.mark_seen(mail_uid)
-                                    print(f"[{mail_usr}] \033[94m[IGNORE]\033[0m [{mail_from}] \033[90m[{mail_subject}]\033[0m")
+                                    print(f"[{mail_usr}]", OUTPUT_IGNORE, f"[{mail_from}]", f"\033[90m[{mail_subject}]\033[0m")
                                 elif mail_from in mail_delete_list:
                                     mail_box.delete(mail_uid)
-                                    print(f"[{mail_usr}] \033[91m[DELETE]\033[0m [{mail_from}] \033[90m[{mail_subject}]\033[0m")
+                                    print(f"[{mail_usr}]", OUTPUT_DELETE, f"[{mail_from}]", f"\033[90m[{mail_subject}]\033[0m")
                     else:
-                        print(f"\033[91m[Warning]\033[0m Unknown mailbox type [{mail_type}]")
+                        print(OUTPUT_WARNING, f"Unknown mailbox type [{mail_type}]")
                 except:
-                    print(f"\033[93m[Warning]\033[0m Cannot login as [{mail_usr}]")
+                    print(OUTPUT_WARNING, f"Cannot login as [{mail_usr}]")
 
             event.wait(POLLING)
 
     except:
-        print(f"\033[91m[Warning]\033[0m Program exit")
+        print(OUTPUT_WARNING, f"Program exit")
+
 
 if __name__ == "__main__":
     main()

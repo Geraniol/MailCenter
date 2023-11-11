@@ -14,13 +14,23 @@
 - 自动删除邮件  
   - 编辑/创建 `./mail_delete.txt`，将需要删除的邮件地址按行写入  
 - 程序 `mailcenter.py` 中可自定义参数：  
-  - `POLLING` 邮件轮询间隔（秒）  
-  - `HEADLESS` 是否不打印输出  
-  - `MAIL_ACCOUNT_FILE` 账户信息之文件路径  
-  - `MAIL_IGNORE_FILE` 需要标记为已读的邮箱之文件路径  
-  - `MAIL_DELETE_FILE` 需要删除的邮箱之文件路径  
+  - 内部参数  
+    - `POLLING` 邮件轮询间隔（秒）  
+    - `QUIET` 不打印输出  
+    - `NOCOLOR` 关闭彩色输出  
+    - `TIMESTAMP` 打印时间戳  
+    - `SSL` 开启 ssl 认证  
+  - 外部参数  
+    - `MAIL_ACCOUNT_FILE` 账户信息之文件路径  
+    - `MAIL_IGNORE_FILE` 需要标记为已读的邮箱之文件路径  
+    - `MAIL_DELETE_FILE` 需要删除的邮箱之文件路径  
 - 目前仅支持 `imap` 协议邮箱  
 - 支持热更新邮箱列表，无需重启程序  
+
+## **问题**  
+- 无法登陆邮箱  
+  - 检查 `./mail_account.json` 中的账户信息是否正确  
+  - 在 `./mailcenter.py` 中关闭 ssl 认证：`SSL = False`  
 
 ## **运行预览**  
 <img src="./lib/sample.png" width="100%">  
